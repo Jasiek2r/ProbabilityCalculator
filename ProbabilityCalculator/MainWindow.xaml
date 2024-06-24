@@ -10,11 +10,36 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="161*"></ColumnDefinition>
-            <ColumnDefinition Width="639*"></ColumnDefinition>
+            <ColumnDefinition Width="300*"></ColumnDefinition>
+            <ColumnDefinition Width="300*"></ColumnDefinition>
+            <ColumnDefinition Width="300*"></ColumnDefinition>
+            <ColumnDefinition Width="300*"></ColumnDefinition>
+            <ColumnDefinition Width="300*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="65*">
+            <RowDefinition Height="60">
+
+            </RowDefinition>
+            <RowDefinition Height="369*">
+
+            </RowDefinition>
+            <RowDefinition Height="369*">
+
+            </RowDefinition>
+            <RowDefinition Height="369*">
+
+            </RowDefinition>
+            <RowDefinition Height="369*">
+
+            </RowDefinition>
+            <RowDefinition Height="369*">
+
+            </RowDefinition>
+            <RowDefinition Height="369*">
+
+            </RowDefinition>
+            <RowDefinition Height="369*">
 
             </RowDefinition>
             <RowDefinition Height="369*">
@@ -25,8 +50,54 @@
         <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="ANS" VerticalAlignment="Center" FontSize="24" FontFamily="Bahnschrift Condensed" Height="29"/>
         </Border>
-        <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
             <TextBlock Text="0" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="4"></TextBlock>
         </Border>
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <Button Content="1" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+            <Button Content="2" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
+            <Button Content="3" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <Button Content="4" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+            <Button Content="5" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
+            <Button Content="6" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <Button Content="7" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+            <Button Content="8" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
+            <Button Content="9" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
+            <Button Content="+" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
+            <Button Content="-" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
+            <Button Content="+" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
+            <Button Content="x" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
+            <Button Content="/" FontSize="20"></Button>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
+            <Button Content="E[X]" FontSize="20"></Button>
+        </Border>
+
     </Grid>
 </Window>
