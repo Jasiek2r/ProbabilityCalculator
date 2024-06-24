@@ -1,0 +1,32 @@
+﻿<Window x:Class="ProbabilityCalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProbabilityCalculator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+            <ColumnDefinition Width="639*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65*">
+
+            </RowDefinition>
+            <RowDefinition Height="369*">
+
+            </RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="ANS" VerticalAlignment="Center" FontSize="24" FontFamily="Bahnschrift Condensed" Height="29"/>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <TextBlock Text="0" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="4"></TextBlock>
+        </Border>
+    </Grid>
+</Window>
