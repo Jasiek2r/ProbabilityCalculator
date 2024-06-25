@@ -9,7 +9,7 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="161*"></ColumnDefinition>
+            <ColumnDefinition Width="161"></ColumnDefinition>
             <ColumnDefinition Width="300*"></ColumnDefinition>
             <ColumnDefinition Width="300*"></ColumnDefinition>
             <ColumnDefinition Width="300*"></ColumnDefinition>
@@ -114,6 +114,16 @@
         <Border Grid.Row="8" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
             <Button x:Name="EqualSign" Content="=" FontSize="20" Click="Calculate"></Button>
         </Border>
+        <Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+            <TextBlock Name="VarPanelDescriptor" HorizontalAlignment="Center" Text="Manage variables:" VerticalAlignment="Center" FontSize="24" FontFamily="Bahnschrift Condensed" Height="29"/>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+            <Button Content="Edit variables" FontSize="20"/>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+            <Button Content="Set working variable" FontSize="16" Click="SetWorkingVariable"></Button>
+        </Border>
+
 
     </Grid>
 </Window>

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProbabilityCalculator.ViewModels
 {
-    internal class Scalar
+    public class Scalar
     {
         private decimal _value;
         private bool _hasDecimalPart;
+
 
         public Scalar()
         {

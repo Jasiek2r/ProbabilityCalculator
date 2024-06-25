@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProbabilityCalculator.ViewModels
 {
-    internal class RandomQuantity
+    public class RandomQuantity
     {
+        public RandomQuantity()
+        {
 
+        }
     }
 }

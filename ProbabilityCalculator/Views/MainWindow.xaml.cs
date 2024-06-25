@@ -1,4 +1,5 @@
 ﻿using ProbabilityCalculator.ViewModels;
+using ProbabilityCalculator.Views;
 using System.Text;
 using System.Windows;
 using System.Windows.Automation;
@@ -182,6 +183,24 @@ namespace ProbabilityCalculator
             workingOperation = "/";
             workingVariable = "OPVAL";
             VarNameDisplay.Text = workingVariable;
+        }
+
+        private void SetWorkingVariable(object sender, RoutedEventArgs e)
+        {
+            Window1 popup = new Window1(ref probabilisticCalculator, workingVariable);
+            
+            popup.PropertyChanged += (s, args) =>
+            {
+                if (args.PropertyName == "WorkingVariable")
+                {
+                    VarNameDisplay.Text = popup.WorkingVariable;
+                    workingVariable = popup.WorkingVariable;
+                }
+            };
+            popup.ShowDialog();
+            VarNameDisplay.Text = workingVariable;
+
+
         }
     }
 }
