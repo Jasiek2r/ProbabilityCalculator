@@ -48,7 +48,7 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="ANS" VerticalAlignment="Center" FontSize="24" FontFamily="Bahnschrift Condensed" Height="29"/>
+            <TextBlock Name="VarNameDisplay" HorizontalAlignment="Center" TextWrapping="Wrap" Text="ANS" VerticalAlignment="Center" FontSize="24" FontFamily="Bahnschrift Condensed" Height="29"/>
         </Border>
         <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
             <TextBlock Name="NumericDisplay" Text="0" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="4" FontSize="24"></TextBlock>
@@ -84,16 +84,16 @@
             <Button Content="+" FontSize="20"></Button>
         </Border>
         <Border Grid.Row="1" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
-            <Button Content="-" FontSize="20"></Button>
+            <Button Content="-" FontSize="20" Click="Subtract"></Button>
         </Border>
         <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-            <Button Content="+" FontSize="20"></Button>
+            <Button Content="+" FontSize="20" Click="Add"></Button>
         </Border>
         <Border Grid.Row="2" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-            <Button Content="x" FontSize="20"></Button>
+            <Button Content="x" FontSize="20" Click="Multiply"></Button>
         </Border>
         <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
-            <Button Content="/" FontSize="20"></Button>
+            <Button Content="/" FontSize="20" Click="Divide"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
             <Button Content="," FontSize="20" Click="AddSemicolon"></Button>
@@ -102,9 +102,12 @@
             <Button Content="DEL" FontSize="20" Click="DelNumber"></Button>
         </Border>
         <Border Grid.Row="4" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-            <Button Content="CLR" FontSize="20" Click="Clear"></Button>
+            <Button Content="0" FontSize="20" Click="Add0"></Button>
         </Border>
         <Border Grid.Row="4" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+            <Button Content="CLR" FontSize="20" Click="Clear"></Button>
+        </Border>
+        <Border Grid.Row="4" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
             <Button Content="E[X]" FontSize="20"></Button>
         </Border>
 

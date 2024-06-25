@@ -23,21 +23,21 @@ namespace ProbabilityCalculator.ViewModels
             this._hasDecimalPart = false;
         }
 
-        public decimal getValue()
+        public decimal GetValue()
         {
             return _value;
         }
 
-        public void setValue(decimal value)
+        public void SetValue(decimal value)
         {
             this._value = value;
         }
 
-        public void setHasDecimalPart(bool hasDecimalPart)
+        public void SetHasDecimalPart(bool hasDecimalPart)
         {
             this._hasDecimalPart = hasDecimalPart;
         }
-        public void appendDigit(Int32 digit)
+        public void AppendDigit(Int32 digit)
         {
             if(_hasDecimalPart == false)
             {
@@ -50,7 +50,7 @@ namespace ProbabilityCalculator.ViewModels
             
         }
 
-        public void popDigit()
+        public void PopDigit()
         {
             int length = _value.ToString().Length;
             String valueAsString = _value.ToString();

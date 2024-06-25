@@ -18,16 +18,68 @@ namespace ProbabilityCalculator.ViewModels
 
             Scalar ANS = new Scalar();
             scalars.Add("ANS",ANS);
+
+            Scalar OPVAL = new Scalar();
+            scalars.Add("OPVAL", OPVAL);
         }
 
-        public Scalar readScalar(String identifier)
+        public Scalar ReadScalar(String identifier)
         {
             return scalars[identifier];
         }
 
-        public void writeScalar(String key, Scalar value)
+        public void WriteScalar(String key, Scalar value)
         {
             scalars[key] = value;
         }
+
+        public void ResetScalar(String key)
+        {
+            scalars[key] = new Scalar();
+        }
+
+        public void Add(String identifier, String operand1Name, String operand2Name)
+        {
+            if(identifier == "scalars")
+            {
+                decimal scalar1Value = scalars[operand1Name].GetValue();
+                decimal scalar2Value = scalars[operand2Name].GetValue();
+
+                scalars["ANS"].SetValue(scalar1Value + scalar2Value);
+            }
+        }
+        public void Multiply(String identifier, String operand1Name, String operand2Name)
+        {
+            if (identifier == "scalars")
+            {
+                decimal scalar1Value = scalars[operand1Name].GetValue();
+                decimal scalar2Value = scalars[operand2Name].GetValue();
+
+                scalars["ANS"].SetValue(scalar1Value * scalar2Value);
+            }
+        }
+
+        public void Subtract(String identifier, String operand1Name, String operand2Name)
+        {
+            if (identifier == "scalars")
+            {
+                decimal scalar1Value = scalars[operand1Name].GetValue();
+                decimal scalar2Value = scalars[operand2Name].GetValue();
+
+                scalars["ANS"].SetValue(scalar1Value - scalar2Value);
+            }
+        }
+        public void Divide(String identifier, String operand1Name, String operand2Name)
+        {
+            if (identifier == "scalars")
+            {
+                decimal scalar1Value = scalars[operand1Name].GetValue();
+                decimal scalar2Value = scalars[operand2Name].GetValue();
+
+                scalars["ANS"].SetValue(scalar1Value / scalar2Value);
+            }
+        }
+
+
     }
 }
