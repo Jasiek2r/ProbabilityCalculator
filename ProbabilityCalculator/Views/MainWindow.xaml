@@ -84,16 +84,16 @@
             <Button Content="+" FontSize="20"></Button>
         </Border>
         <Border Grid.Row="1" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
-            <Button Content="-" FontSize="20" Click="Subtract"></Button>
+            <Button Name="Subtractor" Content="-" FontSize="20" Click="Subtract"></Button>
         </Border>
         <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-            <Button Content="+" FontSize="20" Click="Add"></Button>
+            <Button Name="Adder" Content="+" FontSize="20" Click="Add"></Button>
         </Border>
         <Border Grid.Row="2" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-            <Button Content="x" FontSize="20" Click="Multiply"></Button>
+            <Button Name="Multiplicator" Content="x" FontSize="20" Click="Multiply"></Button>
         </Border>
         <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
-            <Button Content="/" FontSize="20" Click="Divide"></Button>
+            <Button Name="Divider" Content="/" FontSize="20" Click="Divide"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
             <Button Content="," FontSize="20" Click="AddSemicolon"></Button>

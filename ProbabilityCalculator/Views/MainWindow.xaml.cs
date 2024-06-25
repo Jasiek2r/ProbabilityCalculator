@@ -29,6 +29,7 @@ namespace ProbabilityCalculator
 
         private void Calculate(object sender, RoutedEventArgs e)
         {
+            UnlockOps();
             switch (workingOperation)
             {
                 case "+":
@@ -140,6 +141,22 @@ namespace ProbabilityCalculator
             NumericDisplay.Text = ANS.GetValue().ToString();
         }
 
+        private void LockOps()
+        {
+            Adder.Content = "";
+            Subtractor.Content = "";
+            Divider.Content = "";
+            Multiplicator.Content = "";
+        }
+
+        private void UnlockOps()
+        {
+            Adder.Content = "+";
+            Subtractor.Content = "-";
+            Divider.Content = "/";
+            Multiplicator.Content = "x";
+        }
+
         private void Clear(object sender, RoutedEventArgs e)
         {
             //calculate the new value
@@ -158,6 +175,9 @@ namespace ProbabilityCalculator
 
         private void Add(object sender, RoutedEventArgs e)
         {
+            LockOps();
+            if (workingOperation != "")
+                return;
             workingOperation = "+";
             workingVariable = "OPVAL";
             VarNameDisplay.Text = workingVariable;
@@ -166,6 +186,9 @@ namespace ProbabilityCalculator
 
         private void Multiply(object sender, RoutedEventArgs e)
         {
+            LockOps();
+            if (workingOperation != "")
+                return;
             workingOperation = "x";
             workingVariable = "OPVAL";
             VarNameDisplay.Text = workingVariable;
@@ -173,6 +196,9 @@ namespace ProbabilityCalculator
 
         private void Subtract(object sender, RoutedEventArgs e)
         {
+            LockOps();
+            if (workingOperation != "")
+                return;
             workingOperation = "-";
             workingVariable = "OPVAL";
             VarNameDisplay.Text = workingVariable;
@@ -180,6 +206,9 @@ namespace ProbabilityCalculator
 
         private void Divide(object sender, RoutedEventArgs e)
         {
+            LockOps();
+            if (workingOperation != "")
+                return;
             workingOperation = "/";
             workingVariable = "OPVAL";
             VarNameDisplay.Text = workingVariable;
@@ -200,6 +229,12 @@ namespace ProbabilityCalculator
             popup.ShowDialog();
             VarNameDisplay.Text = workingVariable;
 
+            string type = probabilisticCalculator.GetDataKeys()[workingVariable];
+            if(type == "SCALAR")
+            {
+                Scalar scalar = probabilisticCalculator.ReadScalar(workingVariable);
+                NumericDisplay.Text = scalar.GetValue().ToString();
+            }
 
         }
     }

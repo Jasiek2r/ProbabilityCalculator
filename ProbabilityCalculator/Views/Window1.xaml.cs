@@ -58,7 +58,10 @@ namespace ProbabilityCalculator.Views
             if (SelectVariablesGrid.SelectedItem is KeyValuePair<String, String> selection)
             {
                 string name = selection.Key;
-                WorkingVariable = selection.Key;
+                if (name != "OPVAL")
+                    WorkingVariable = selection.Key;
+                else
+                    MessageBox.Show("Access to OPVAL is restricted");
                 
             }
             else
