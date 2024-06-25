@@ -1,11 +1,11 @@
-﻿<Window x:Class="ProbabilityCalculator.MainWindow"
+﻿<Window x:Class="ProbabilityCalculator.Views.ProbabilityCalculator"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProbabilityCalculator"
+        xmlns:local="clr-namespace:ProbabilityCalculator.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="ProbabilityCalculator" Height="450" Width="800">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -54,31 +54,31 @@
             <TextBlock Name="NumericDisplay" Text="0" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="4" FontSize="24"></TextBlock>
         </Border>
         <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-            <Button Content="1" FontSize="20" Click="Add1"></Button>
+            <Button Name="Btn1" Content="1" FontSize="20" Click="Add1"></Button>
         </Border>
         <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
-            <Button Content="2" FontSize="20" Click="Add2"></Button>
+            <Button Name="Btn2" Content="2" FontSize="20" Click="Add2"></Button>
         </Border>
         <Border Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
-            <Button Content="3" FontSize="20" Click="Add3"></Button>
+            <Button Name="Btn3" Content="3" FontSize="20" Click="Add3"></Button>
         </Border>
         <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-            <Button Content="4" FontSize="20" Click="Add4"></Button>
+            <Button Name="Btn4" Content="4" FontSize="20" Click="Add4"></Button>
         </Border>
         <Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
-            <Button Content="5" FontSize="20" Click="Add5"></Button>
+            <Button Name="Btn5" Content="5" FontSize="20" Click="Add5"></Button>
         </Border>
         <Border Grid.Row="2" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
-            <Button Content="6" FontSize="20" Click="Add6"></Button>
+            <Button Name="Btn6" Content="6" FontSize="20" Click="Add6"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-            <Button Content="7" FontSize="20" Click="Add7"></Button>
+            <Button Name="Btn7" Content="7" FontSize="20" Click="Add7"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
-            <Button Content="8" FontSize="20" Click="Add8"></Button>
+            <Button Name="Btn8" Content="8" FontSize="20" Click="Add8"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
-            <Button Content="9" FontSize="20" Click="Add9"></Button>
+            <Button Name="Btn9" Content="9" FontSize="20" Click="Add9"></Button>
         </Border>
         <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
             <Button Content="+" FontSize="20"></Button>
@@ -96,13 +96,13 @@
             <Button Name="Divider" Content="/" FontSize="20" Click="Divide"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-            <Button Content="," FontSize="20" Click="AddSemicolon"></Button>
+            <Button Name="BtnComma" Content="," FontSize="20" Click="AddSemicolon"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
             <Button Content="DEL" FontSize="20" Click="DelNumber"></Button>
         </Border>
         <Border Grid.Row="4" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-            <Button Content="0" FontSize="20" Click="Add0"></Button>
+            <Button Name="Btn0" Content="0" FontSize="20" Click="Add0"></Button>
         </Border>
         <Border Grid.Row="4" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
             <Button Content="CLR" FontSize="20" Click="Clear"></Button>
@@ -118,7 +118,7 @@
             <TextBlock Name="VarPanelDescriptor" HorizontalAlignment="Center" Text="Manage variables:" VerticalAlignment="Center" FontSize="24" FontFamily="Bahnschrift Condensed" Height="29"/>
         </Border>
         <Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-            <Button Content="Edit variables" FontSize="20"/>
+            <Button Content="Edit variables" FontSize="20" Click="EditVariables"/>
         </Border>
         <Border Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
             <Button Content="Set working variable" FontSize="16" Click="SetWorkingVariable"></Button>

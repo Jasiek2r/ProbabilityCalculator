@@ -1,28 +1,28 @@
 ﻿using ProbabilityCalculator.ViewModels;
-using ProbabilityCalculator.Views;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace ProbabilityCalculator
+namespace ProbabilityCalculator.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ProbabilityCalculator.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ProbabilityCalculator : Window
     {
 
         Calculator probabilisticCalculator = new Calculator();
-        public MainWindow()
+        public ProbabilityCalculator()
         {
             InitializeComponent();
         }
@@ -34,7 +34,7 @@ namespace ProbabilityCalculator
             {
                 case "+":
                     probabilisticCalculator.Add("scalars", "ANS", "OPVAL");
-                    
+
                     break;
                 case "x":
                     probabilisticCalculator.Multiply("scalars", "ANS", "OPVAL");
@@ -55,7 +55,7 @@ namespace ProbabilityCalculator
             Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
             NumericDisplay.Text = ANS.GetValue().ToString();
             probabilisticCalculator.ResetScalar("OPVAL");
-            
+
         }
 
         private bool _isCommaJustClicked = false;
@@ -63,8 +63,15 @@ namespace ProbabilityCalculator
         string workingVariable = "ANS";
         string workingOperation = "";
 
-        private void AddNumber(Int32 number)
+        private bool _isNumericKeyPadLocked = false;
+
+        private void AddNumber(int number)
         {
+
+            if (_isNumericKeyPadLocked)
+            {
+                return;
+            }
             //calculate the new value
             Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
             ANS.AppendDigit(number);
@@ -157,6 +164,40 @@ namespace ProbabilityCalculator
             Multiplicator.Content = "x";
         }
 
+        private void LockNumericKeypad()
+        {
+            Btn0.Content = "";
+            Btn1.Content = "";
+            Btn2.Content = "";
+            Btn3.Content = "";
+            Btn4.Content = "";
+            Btn5.Content = "";
+            Btn6.Content = "";
+            Btn7.Content = "";
+            Btn8.Content = "";
+            Btn9.Content = "";
+            BtnComma.Content = "";
+
+            _isNumericKeyPadLocked = true;
+        }
+
+        private void UnlockNumericKeypad()
+        {
+            Btn0.Content = "0";
+            Btn1.Content = "1";
+            Btn2.Content = "2";
+            Btn3.Content = "3";
+            Btn4.Content = "4";
+            Btn5.Content = "5";
+            Btn6.Content = "6";
+            Btn7.Content = "7";
+            Btn8.Content = "8";
+            Btn9.Content = "9";
+            BtnComma.Content = ",";
+
+            _isNumericKeyPadLocked = false;
+        }
+
         private void Clear(object sender, RoutedEventArgs e)
         {
             //calculate the new value
@@ -167,8 +208,12 @@ namespace ProbabilityCalculator
             NumericDisplay.Text = ANS.GetValue().ToString();
         }
 
+        //meant comma (,) to be changed later!
         private void AddSemicolon(object sender, RoutedEventArgs e)
         {
+            if (_isNumericKeyPadLocked)
+                return;
+            
             NumericDisplay.Text += ",";
             _isCommaJustClicked = true;
         }
@@ -181,7 +226,7 @@ namespace ProbabilityCalculator
             workingOperation = "+";
             workingVariable = "OPVAL";
             VarNameDisplay.Text = workingVariable;
-            
+
         }
 
         private void Multiply(object sender, RoutedEventArgs e)
@@ -216,8 +261,8 @@ namespace ProbabilityCalculator
 
         private void SetWorkingVariable(object sender, RoutedEventArgs e)
         {
-            Window1 popup = new Window1(ref probabilisticCalculator, workingVariable);
-            
+            FormSetWorkingVariable popup = new FormSetWorkingVariable(ref probabilisticCalculator, workingVariable);
+
             popup.PropertyChanged += (s, args) =>
             {
                 if (args.PropertyName == "WorkingVariable")
@@ -226,14 +271,44 @@ namespace ProbabilityCalculator
                     workingVariable = popup.WorkingVariable;
                 }
             };
+
+            this.Hide();
             popup.ShowDialog();
+            this.Show();
             VarNameDisplay.Text = workingVariable;
 
             string type = probabilisticCalculator.GetDataKeys()[workingVariable];
-            if(type == "SCALAR")
+            if (type == "SCALAR")
             {
                 Scalar scalar = probabilisticCalculator.ReadScalar(workingVariable);
                 NumericDisplay.Text = scalar.GetValue().ToString();
+                UnlockNumericKeypad();
+            }
+            else
+            {
+                LockNumericKeypad();
+            }
+
+        }
+
+        private void EditVariables(object sender, RoutedEventArgs e)
+        {
+            FormEditVariables popup = new FormEditVariables(ref probabilisticCalculator);
+            this.Hide();
+            popup.ShowDialog();
+            this.Show();
+
+            string type = probabilisticCalculator.GetDataKeys()[workingVariable];
+
+            if (type == "SCALAR")
+            {
+                Scalar possiblyEditedScalar = probabilisticCalculator.ReadScalar(workingVariable);
+                NumericDisplay.Text = possiblyEditedScalar.GetValue().ToString();
+
+            }
+            else
+            {
+
             }
 
         }

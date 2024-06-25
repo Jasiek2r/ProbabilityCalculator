@@ -1,9 +1,6 @@
 ﻿using ProbabilityCalculator.ViewModels;
-using ProbabilityCalculator.Views;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,57 +18,49 @@ namespace ProbabilityCalculator.Views
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window, INotifyPropertyChanged
+    public partial class FormEditVariables : Window
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-    
         protected Calculator probabilityCalculator;
         private string _workingVariable;
 
-        public string WorkingVariable
-        {
-            get { return _workingVariable; }
-            set
-            {
-                if (_workingVariable != value)
-                {
-                    _workingVariable = value;
-                    OnPropertyChanged(nameof(WorkingVariable));
-                }
-            }
-        }
-
-        public Window1()
+        public FormEditVariables()
         {
             InitializeComponent();
         }
-        public Window1(ref Calculator probabilisticCalculator, string workingVariable)
+        public FormEditVariables(ref Calculator probabilisticCalculator)
         {
             this.probabilityCalculator = probabilisticCalculator;
             InitializeComponent();
             SelectVariablesGrid.ItemsSource = probabilisticCalculator.GetDataKeys();
-            this._workingVariable = workingVariable;
         }
 
-        private void SelectWorkingVariable(object sender, MouseButtonEventArgs e)
+        private void OpenEditInterface(object sender, MouseButtonEventArgs e)
         {
             if (SelectVariablesGrid.SelectedItem is KeyValuePair<String, String> selection)
             {
+
                 string name = selection.Key;
                 if (name != "OPVAL")
-                    WorkingVariable = selection.Key;
+                {
+                    string type = probabilityCalculator.GetDataKeys()[name];
+                    if (type == "SCALAR")
+                    {
+                        FormEditScalar scalarEditor = new FormEditScalar();
+                        scalarEditor.ShowDialog();
+                        Scalar editedScalar = probabilityCalculator.ReadScalar(name);
+                        editedScalar.SetValue(scalarEditor.GetNumericValue());
+                        probabilityCalculator.WriteScalar(name, editedScalar);
+                    }
+                    else
+                    {
+
+                    }
+
+                }
                 else
                     MessageBox.Show("Access to OPVAL is restricted");
-                
+
             }
-            else
-            {
-                MessageBox.Show("No item selected or selected item is not valid.");
-            }
-        }
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
