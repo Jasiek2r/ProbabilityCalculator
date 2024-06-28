@@ -20,17 +20,9 @@ namespace ProbabilityCalculator.ViewModels
             randomQuantities = new Dictionary<String, RandomQuantity>();
             dataKeys = new Dictionary<String, String>();
 
-            Scalar ANS = new Scalar();
-            scalars.Add("ANS",ANS);
-            dataKeys.Add("ANS", "SCALAR");
-
-            Scalar OPVAL = new Scalar();
-            scalars.Add("OPVAL", OPVAL);
-            dataKeys.Add("OPVAL", "SCALAR");
-
-            RandomQuantity X = new RandomQuantity();
-            randomQuantities.Add("X", X);
-            dataKeys.Add("X", "RANDOM QUANTITY");
+            CreateScalar("ANS");
+            CreateScalar("OPVAL");
+            CreateRandomQuantity("X");
         }
 
         public Scalar ReadScalar(String identifier)
@@ -41,6 +33,12 @@ namespace ProbabilityCalculator.ViewModels
         public void WriteScalar(String key, Scalar value)
         {
             scalars[key] = value;
+        }
+
+        public void CreateScalar(String identifier)
+        {
+            scalars.Add(identifier, new Scalar());
+            dataKeys.Add(identifier, "SCALAR");
         }
 
         public void ResetScalar(String key)
@@ -55,6 +53,11 @@ namespace ProbabilityCalculator.ViewModels
         public Dictionary<String, RandomQuantity> GetRandomQuantities()
         {
             return randomQuantities;
+        }
+
+        public String GetDataKey(String identifier)
+        {
+            return dataKeys[identifier];
         }
 
         public Dictionary<String, String> GetDataKeys()
@@ -72,6 +75,12 @@ namespace ProbabilityCalculator.ViewModels
             randomQuantities[key] = value;
         }
 
+        public void CreateRandomQuantity(String identifier)
+        {
+            randomQuantities.Add(identifier, new RandomQuantity());
+            dataKeys.Add(identifier, "RANDOM QUANTITY");
+        }
+
         public void Add(String identifier, String operand1Name, String operand2Name)
         {
             if(identifier == "scalars")
@@ -79,8 +88,25 @@ namespace ProbabilityCalculator.ViewModels
                 decimal scalar1Value = scalars[operand1Name].GetValue();
                 decimal scalar2Value = scalars[operand2Name].GetValue();
 
-                scalars["ANS"].SetValue(scalar1Value + scalar2Value);
+                scalars[operand1Name].SetValue(scalar1Value + scalar2Value);
             }
+            else if(identifier == "randomQuantityAndScalar")
+            {
+                RandomQuantity randomQuantity1 = ReadRandomQuantity(operand1Name);
+                decimal scalar2Value = scalars[operand2Name].GetValue();
+
+                Dictionary<decimal, decimal> oldRealisations = randomQuantity1.GetRealisations();
+                Dictionary<decimal, decimal> newRealisations = new Dictionary<decimal, decimal>();
+
+                foreach (KeyValuePair<decimal, decimal> realisation in oldRealisations)
+                {
+                    newRealisations.Add(realisation.Key + scalar2Value, realisation.Value);
+                }
+                randomQuantity1.SetRealisations(newRealisations);
+                WriteRandomQuantity(operand1Name, randomQuantity1);
+            }
+
+            
         }
         public void Multiply(String identifier, String operand1Name, String operand2Name)
         {
@@ -89,7 +115,7 @@ namespace ProbabilityCalculator.ViewModels
                 decimal scalar1Value = scalars[operand1Name].GetValue();
                 decimal scalar2Value = scalars[operand2Name].GetValue();
 
-                scalars["ANS"].SetValue(scalar1Value * scalar2Value);
+                scalars[operand1Name].SetValue(scalar1Value * scalar2Value);
             }
         }
 
@@ -100,8 +126,9 @@ namespace ProbabilityCalculator.ViewModels
                 decimal scalar1Value = scalars[operand1Name].GetValue();
                 decimal scalar2Value = scalars[operand2Name].GetValue();
 
-                scalars["ANS"].SetValue(scalar1Value - scalar2Value);
+                scalars[operand1Name].SetValue(scalar1Value - scalar2Value);
             }
+            
         }
         public void Divide(String identifier, String operand1Name, String operand2Name)
         {
@@ -110,7 +137,7 @@ namespace ProbabilityCalculator.ViewModels
                 decimal scalar1Value = scalars[operand1Name].GetValue();
                 decimal scalar2Value = scalars[operand2Name].GetValue();
 
-                scalars["ANS"].SetValue(scalar1Value / scalar2Value);
+                scalars[operand1Name].SetValue(scalar1Value / scalar2Value);
             }
         }
 

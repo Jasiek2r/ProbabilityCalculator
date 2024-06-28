@@ -99,13 +99,13 @@
             <Button Name="BtnComma" Content="," FontSize="20" Click="AddSemicolon"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
-            <Button Content="DEL" FontSize="20" Click="DelNumber"></Button>
+            <Button Name="BtnDEL" Content="DEL" FontSize="20" Click="DelNumber"></Button>
         </Border>
         <Border Grid.Row="4" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
             <Button Name="Btn0" Content="0" FontSize="20" Click="Add0"></Button>
         </Border>
         <Border Grid.Row="4" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
-            <Button Content="CLR" FontSize="20" Click="Clear"></Button>
+            <Button Name="BtnCLR" Content="CLR" FontSize="20" Click="Clear"></Button>
         </Border>
         <Border Grid.Row="4" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
             <Button Content="E[X]" FontSize="20"></Button>
@@ -121,8 +121,9 @@
             <Button Content="Edit variables" FontSize="20" Click="EditVariables"/>
         </Border>
         <Border Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-            <Button Content="Set working variable" FontSize="16" Click="SetWorkingVariable"></Button>
+            <Button Content="Set operand" FontSize="16" Click="SetWorkingVariable"></Button>
         </Border>
+        <Label Content="The result is always saved into the first operand (by default ANS = ANS+OPVAL)" HorizontalAlignment="Left" Margin="42,0,0,0" Grid.Row="8" VerticalAlignment="Center" Grid.ColumnSpan="5" Width="584"/>
 
 
     </Grid>

@@ -66,5 +66,36 @@ namespace ProbabilityCalculator.Views
 
             }
         }
+
+        private void CreateVariable(object sender, RoutedEventArgs e)
+        {
+            string variableName = VariableCreatorVariableName.Text;
+            if(variableName.Length == 0)
+            {
+                return;
+            }
+
+            if(RandomQuantityRadio.IsChecked == true)
+            {
+                probabilityCalculator.CreateRandomQuantity(variableName);
+                FormEditRandomQuantity formEditRandomQuantity = new FormEditRandomQuantity(ref probabilityCalculator, variableName);
+                formEditRandomQuantity.ShowDialog();
+                SelectVariablesGrid.Items.Refresh();
+            }
+
+            if(ScalarRadio.IsChecked == true)
+            {
+                probabilityCalculator.CreateScalar(variableName);
+                FormEditScalar formEditScalar = new FormEditScalar();
+                formEditScalar.ShowDialog();
+
+                Scalar createdScalar = probabilityCalculator.ReadScalar(variableName);
+                createdScalar.SetValue(formEditScalar.GetNumericValue());
+                probabilityCalculator.WriteScalar(variableName, createdScalar);
+
+                SelectVariablesGrid.Items.Refresh();
+
+            }
+        }
     }
 }

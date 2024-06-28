@@ -27,40 +27,70 @@ namespace ProbabilityCalculator.Views
             InitializeComponent();
         }
 
+        private String GetVariableTypes(string operand1Name, string operand2Name)
+        {
+            string variable1Type = probabilisticCalculator.GetDataKey(operand1Name);
+            string variable2Type = probabilisticCalculator.GetDataKey(operand2Name);
+
+            if (variable1Type == "SCALAR" && variable2Type == "SCALAR")
+                return "scalars";
+            else if (variable1Type == "RANDOM QUANTITY" && variable2Type == "SCALAR")
+                return "randomQuantityAndScalar";
+            else if (variable1Type == "SCALAR" && variable2Type == "RANDOM QUANTITY")
+                return "scalarAndRandomQuantity";
+            else
+                return "randomQuantities";
+        }
+
         private void Calculate(object sender, RoutedEventArgs e)
         {
             UnlockOps();
+
+            string variableDataTypes = GetVariableTypes(operand1, workingVariable);
+
+ 
+
             switch (workingOperation)
             {
                 case "+":
-                    probabilisticCalculator.Add("scalars", "ANS", "OPVAL");
+                    probabilisticCalculator.Add(variableDataTypes, operand1, workingVariable);
 
                     break;
                 case "x":
-                    probabilisticCalculator.Multiply("scalars", "ANS", "OPVAL");
+                    probabilisticCalculator.Multiply(variableDataTypes, operand1, workingVariable);
                     break;
                 case "-":
-                    probabilisticCalculator.Subtract("scalars", "ANS", "OPVAL");
+                    probabilisticCalculator.Subtract(variableDataTypes, operand1, workingVariable);
                     break;
                 case "/":
-                    probabilisticCalculator.Divide("scalars", "ANS", "OPVAL");
+                    probabilisticCalculator.Divide(variableDataTypes, operand1, workingVariable);
                     break;
                 default:
                     break;
             }
 
             workingOperation = "";
-            workingVariable = "ANS";
+            workingVariable = operand1;
             VarNameDisplay.Text = workingVariable;
-            Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
-            NumericDisplay.Text = ANS.GetValue().ToString();
-            probabilisticCalculator.ResetScalar("OPVAL");
+
+            if(variableDataTypes == "scalars" || variableDataTypes == "scalarAndRandomQuantity")
+            {
+                Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
+                NumericDisplay.Text = ANS.GetValue().ToString();
+                probabilisticCalculator.ResetScalar("OPVAL");
+            }
+
+
+            if (variableDataTypes == "randomQuantities" || variableDataTypes == "randomQuantityAndScalar")
+                LockNumericKeypad();
+            
 
         }
 
         private bool _isCommaJustClicked = false;
 
         string workingVariable = "ANS";
+        string operand1 = "ANS";
         string workingOperation = "";
 
         private bool _isNumericKeyPadLocked = false;
@@ -140,6 +170,8 @@ namespace ProbabilityCalculator.Views
 
         private void DelNumber(object sender, RoutedEventArgs e)
         {
+            if (_isNumericKeyPadLocked)
+                return;
             //calculate the new value
             Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
             ANS.PopDigit();
@@ -176,6 +208,9 @@ namespace ProbabilityCalculator.Views
             Btn7.Content = "";
             Btn8.Content = "";
             Btn9.Content = "";
+            BtnDEL.Content = "";
+            BtnCLR.Content = "";
+
             BtnComma.Content = "";
 
             _isNumericKeyPadLocked = true;
@@ -193,6 +228,8 @@ namespace ProbabilityCalculator.Views
             Btn7.Content = "7";
             Btn8.Content = "8";
             Btn9.Content = "9";
+            BtnCLR.Content = "CLR";
+            BtnDEL.Content = "DEL";
             BtnComma.Content = ",";
 
             _isNumericKeyPadLocked = false;
@@ -200,6 +237,10 @@ namespace ProbabilityCalculator.Views
 
         private void Clear(object sender, RoutedEventArgs e)
         {
+
+            if(_isNumericKeyPadLocked)
+                return;
+            
             //calculate the new value
             Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
             ANS.SetValue(0);
@@ -221,6 +262,7 @@ namespace ProbabilityCalculator.Views
         private void Add(object sender, RoutedEventArgs e)
         {
             LockOps();
+            UnlockNumericKeypad();
             if (workingOperation != "")
                 return;
             workingOperation = "+";
@@ -232,6 +274,7 @@ namespace ProbabilityCalculator.Views
         private void Multiply(object sender, RoutedEventArgs e)
         {
             LockOps();
+            UnlockNumericKeypad();
             if (workingOperation != "")
                 return;
             workingOperation = "x";
@@ -242,6 +285,7 @@ namespace ProbabilityCalculator.Views
         private void Subtract(object sender, RoutedEventArgs e)
         {
             LockOps();
+            UnlockNumericKeypad();
             if (workingOperation != "")
                 return;
             workingOperation = "-";
@@ -252,6 +296,7 @@ namespace ProbabilityCalculator.Views
         private void Divide(object sender, RoutedEventArgs e)
         {
             LockOps();
+            UnlockNumericKeypad();
             if (workingOperation != "")
                 return;
             workingOperation = "/";
@@ -269,6 +314,8 @@ namespace ProbabilityCalculator.Views
                 {
                     VarNameDisplay.Text = popup.WorkingVariable;
                     workingVariable = popup.WorkingVariable;
+                    if(workingOperation == "")
+                        operand1 = popup.WorkingVariable;
                 }
             };
 
@@ -308,7 +355,7 @@ namespace ProbabilityCalculator.Views
             }
             else
             {
-
+                
             }
 
         }

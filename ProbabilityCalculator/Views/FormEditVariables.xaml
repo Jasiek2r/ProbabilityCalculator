@@ -13,6 +13,10 @@
                 <DataGridTextColumn Header="Type" Binding="{Binding Value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-
+        <Label Content="Add a new variable" HorizontalAlignment="Left" Margin="34,290,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="VariableCreatorVariableName" HorizontalAlignment="Left" Margin="34,361,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Create" HorizontalAlignment="Left" Margin="34,393,0,0" VerticalAlignment="Top" Click="CreateVariable"/>
+        <RadioButton Name="RandomQuantityRadio" Content="Random quantity" HorizontalAlignment="Left" Margin="34,321,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="ScalarRadio" Content="Scalar" HorizontalAlignment="Left" Margin="34,341,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
