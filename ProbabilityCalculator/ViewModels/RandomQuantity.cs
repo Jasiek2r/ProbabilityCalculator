@@ -14,5 +14,15 @@ namespace ProbabilityCalculator.ViewModels
             realisations = new Dictionary<decimal, decimal>();
             realisations.Add(1, 1);
         }
+
+        public Dictionary<decimal,decimal> GetRealisations()
+        {
+            return realisations;
+        }
+
+        public void SetRealisations(Dictionary<decimal, decimal> realisations)
+        {
+            this.realisations = realisations;
+        }
     }
 }

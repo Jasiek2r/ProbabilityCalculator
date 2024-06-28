@@ -1,5 +1,4 @@
-﻿using ProbabilityCalculator.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProbabilityCalculator.ViewModels;
+
 
 namespace ProbabilityCalculator.Views
 {
@@ -31,6 +32,7 @@ namespace ProbabilityCalculator.Views
         {
             this.probabilityCalculator = probabilisticCalculator;
             InitializeComponent();
+
             SelectVariablesGrid.ItemsSource = probabilisticCalculator.GetDataKeys();
         }
 
@@ -53,6 +55,8 @@ namespace ProbabilityCalculator.Views
                     }
                     else
                     {
+                        FormEditRandomQuantity randomQuantityEditor = new FormEditRandomQuantity(ref probabilityCalculator, name);
+                        randomQuantityEditor.ShowDialog();
 
                     }
 

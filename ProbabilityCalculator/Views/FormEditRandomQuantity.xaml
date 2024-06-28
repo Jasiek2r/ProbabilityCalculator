@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="FormEditRandomQuantity" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="434*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="RandomQuantityDataGrid" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Random quantity realization" Binding="{Binding Key}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Probability of realization" Binding="{Binding Value}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>

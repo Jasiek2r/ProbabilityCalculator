@@ -62,6 +62,16 @@ namespace ProbabilityCalculator.ViewModels
             return dataKeys;
         }
 
+        public RandomQuantity ReadRandomQuantity(String identifier)
+        {
+            return randomQuantities[identifier];
+        }
+
+        public void WriteRandomQuantity(String key,  RandomQuantity value)
+        {
+            randomQuantities[key] = value;
+        }
+
         public void Add(String identifier, String operand1Name, String operand2Name)
         {
             if(identifier == "scalars")
