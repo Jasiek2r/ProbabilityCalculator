@@ -61,5 +61,22 @@ namespace ProbabilityCalculator.ViewModels
 
             return expectedValue;
         }
+
+        public decimal ComputeVariance()
+        {
+
+            decimal mean = ComputeExpectedValue();
+
+            decimal sumSquaredDifferences = 0;
+            foreach (KeyValuePair<decimal, decimal> realisation in realisations)
+            {
+                decimal difference = realisation.Key - mean;
+                sumSquaredDifferences += difference * difference * realisation.Value;
+            }
+
+            decimal variance = sumSquaredDifferences;
+
+            return variance;
+        }
     }
 }

@@ -395,5 +395,38 @@ namespace ProbabilityCalculator.Views
                 MessageBox.Show("Expected value calculation not supported for this data type.");
             }
         }
+
+        private void CalculateVariance(object sender, RoutedEventArgs e)
+        {
+            string dataKey = probabilisticCalculator.GetDataKey(workingVariable);
+
+            if (dataKey == "RANDOM QUANTITY")
+            {
+                // Assuming you have a method to retrieve the random quantity value
+                RandomQuantity randomQuantity = probabilisticCalculator.ReadRandomQuantity(workingVariable);
+
+                // Calculate expected value using the random quantity
+                decimal expectedValue = randomQuantity.ComputeVariance();
+
+                // Update the ANS scalar with the expected value
+                probabilisticCalculator.WriteScalar("ANS", new Scalar(expectedValue));
+
+                // Display the expected value in the numeric display
+                NumericDisplay.Text = expectedValue.ToString();
+
+                workingVariable = "ANS";
+                workingOperation = "ANS";
+                VarNameDisplay.Text = "ANS";
+
+                UnlockNumericKeypad();
+
+
+            }
+            else
+            {
+                // Handle other cases or throw an error if needed
+                MessageBox.Show("Variance calculation not supported for this data type.");
+            }
+        }
     }
 }

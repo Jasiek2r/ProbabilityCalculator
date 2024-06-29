@@ -13,6 +13,8 @@
                 <DataGridTextColumn Header="Type" Binding="{Binding Value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <TextBlock HorizontalAlignment="Left" Margin="447,328,0,0" TextWrapping="Wrap" Text="Close this window when you are done." VerticalAlignment="Top"/>
+
 
     </Grid>
 </Window>

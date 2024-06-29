@@ -110,6 +110,9 @@
         <Border Grid.Row="4" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
             <Button x:Name="BtnExpectedValue" Content="E[X]" FontSize="20" Click="CalculateExpectedValue"></Button>
         </Border>
+        <Border Grid.Row="4" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
+            <Button x:Name="BtnVariance" Content="V[X]" FontSize="20" Click="CalculateVariance"></Button>
+        </Border>
 
         <Border Grid.Row="8" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
             <Button x:Name="EqualSign" Content="=" FontSize="20" Click="Calculate"></Button>

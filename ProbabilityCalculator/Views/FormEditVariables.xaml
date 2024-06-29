@@ -18,5 +18,6 @@
         <Button Content="Create" HorizontalAlignment="Left" Margin="34,393,0,0" VerticalAlignment="Top" Click="CreateVariable"/>
         <RadioButton Name="RandomQuantityRadio" Content="Random quantity" HorizontalAlignment="Left" Margin="34,321,0,0" VerticalAlignment="Top"/>
         <RadioButton Name="ScalarRadio" Content="Scalar" HorizontalAlignment="Left" Margin="34,341,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="447,328,0,0" TextWrapping="Wrap" Text="Close this window when you are done." VerticalAlignment="Top"/>
     </Grid>
 </Window>
