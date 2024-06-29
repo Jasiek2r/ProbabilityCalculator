@@ -7,17 +7,40 @@
         mc:Ignorable="d"
         Title="Variable Dissector" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="285*">
+            </RowDefinition>
+            <RowDefinition Height="149*"></RowDefinition>
+        </Grid.RowDefinitions>
         <DataGrid Name="SelectVariablesGrid" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="OpenEditInterface">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Key}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Binding="{Binding Value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Add a new variable" HorizontalAlignment="Left" Margin="34,290,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="VariableCreatorVariableName" HorizontalAlignment="Left" Margin="34,361,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Create" HorizontalAlignment="Left" Margin="34,393,0,0" VerticalAlignment="Top" Click="CreateVariable"/>
-        <RadioButton Name="RandomQuantityRadio" Content="Random quantity" HorizontalAlignment="Left" Margin="34,321,0,0" VerticalAlignment="Top"/>
-        <RadioButton Name="ScalarRadio" Content="Scalar" HorizontalAlignment="Left" Margin="34,341,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="447,328,0,0" TextWrapping="Wrap" Text="Close this window when you are done." VerticalAlignment="Top"/>
+        <Label Content="Add a new variable" HorizontalAlignment="Left" Margin="35,7,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Width="111"/>
+        <TextBox Name="VariableCreatorVariableName" HorizontalAlignment="Left" Margin="35,80,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="23" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Button Content="Create" HorizontalAlignment="Left" Margin="35,108,0,0" VerticalAlignment="Top" Click="CreateVariable" Height="22" Grid.Row="1" Width="88" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <RadioButton Name="RandomQuantityRadio" Content="Random quantity" HorizontalAlignment="Left" Margin="36,38,0,0" VerticalAlignment="Top" Height="16" Grid.Row="1" Width="110"/>
+        <RadioButton Name="ScalarRadio" Content="Scalar" HorizontalAlignment="Left" Margin="36,55,0,0" VerticalAlignment="Top" Height="20" Grid.Row="1" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" Margin="333,0,0,0" TextWrapping="Wrap" Text="Close this window when you are done." VerticalAlignment="Center" Height="16" Grid.Row="1" Width="203"/>
     </Grid>
 </Window>

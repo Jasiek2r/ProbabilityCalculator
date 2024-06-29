@@ -96,7 +96,7 @@
             <Button Name="Divider" Content="/" FontSize="20" Click="Divide"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-            <Button Name="BtnComma" Content="," FontSize="20" Click="AddSemicolon"></Button>
+            <Button Name="BtnComma" Content="," FontSize="20" Click="AddComma"></Button>
         </Border>
         <Border Grid.Row="3" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
             <Button Name="BtnDEL" Content="DEL" FontSize="20" Click="DelNumber"></Button>
@@ -126,8 +126,11 @@
         <Border Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
             <Button Content="Set operand" FontSize="16" Click="SetWorkingVariable"></Button>
         </Border>
-        <Label Content="For two-argument operation the result is always saved into the first operand (by default ANS = ANS+OPVAL)" HorizontalAlignment="Left" Margin="42,0,0,0" Grid.Row="8" VerticalAlignment="Center" Grid.ColumnSpan="5" Width="584"/>
-
+        <Label Content="For two-argument operation the result is always saved into the first operand (by default ANS = ANS+OPVAL)" HorizontalAlignment="Left" Margin="53,44,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="5" Width="584" Grid.RowSpan="2"/>
+        <Label Content="If the result of an operation is a random quantity, it will not be visible on display." HorizontalAlignment="Left" Margin="53,46,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="5" Width="584" Grid.RowSpan="2"/>
+        <Label Content="Instead you will see the result name in upper-left corner." HorizontalAlignment="Left" Margin="53,23,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="5" Width="584" Grid.RowSpan="2"/>
+        <Label Content="To see how did the operation affect random quantity, head to 'edit variables' and see its realisations" HorizontalAlignment="Left" Margin="53,46,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="5" Width="584" Grid.RowSpan="2"/>
+        <Label Content="Current operand is shown in top-left corner and you can change it by clicking 'set operand'." HorizontalAlignment="Left" Margin="53,21,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="5" Width="584" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>

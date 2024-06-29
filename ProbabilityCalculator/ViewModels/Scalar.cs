@@ -39,6 +39,11 @@ namespace ProbabilityCalculator.ViewModels
         {
             this._hasDecimalPart = hasDecimalPart;
         }
+
+        public bool GetHasDecimalPart()
+        {
+            return this._hasDecimalPart;
+        }
         public void AppendDigit(Int32 digit)
         {
             if(_hasDecimalPart == false)

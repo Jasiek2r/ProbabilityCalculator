@@ -7,13 +7,18 @@
         mc:Ignorable="d"
         Title="Variable Dissector" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="285*">
+            </RowDefinition>
+            <RowDefinition Height="149*"></RowDefinition>
+        </Grid.RowDefinitions>
         <DataGrid Name="SelectVariablesGrid" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="SelectWorkingVariable">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Key}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Binding="{Binding Value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock HorizontalAlignment="Left" Margin="447,328,0,0" TextWrapping="Wrap" Text="Close this window when you are done." VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="447,43,0,0" TextWrapping="Wrap" Text="Close this window when you are done." VerticalAlignment="Top" Height="32" Grid.Row="1"/>
 
 
     </Grid>

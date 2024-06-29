@@ -174,6 +174,14 @@ namespace ProbabilityCalculator.Views
             //calculate the new value
             Scalar editedScalar = probabilisticCalculator.ReadScalar(_workingVariable);
             editedScalar.PopDigit();
+
+            if (editedScalar.GetValue() % 1 == 0)
+            {
+                editedScalar.SetHasDecimalPart(false);
+                _isCommaJustClicked = false;
+            }
+                
+
             probabilisticCalculator.WriteScalar(_workingVariable, editedScalar);
             //update display
             NumericDisplay.Text = editedScalar.GetValue().ToString();
@@ -249,10 +257,20 @@ namespace ProbabilityCalculator.Views
             NumericDisplay.Text = answerScalar.GetValue().ToString();
         }
 
-        //meant comma (,) to be changed later!
-        private void AddSemicolon(object sender, RoutedEventArgs e)
+        private void AddComma(object sender, RoutedEventArgs e)
         {
             if (_isNumericKeyPadLocked)
+                return;
+
+            string dataKey = probabilisticCalculator.GetDataKey(_workingVariable);
+
+            if (dataKey != "SCALAR")
+                return;
+
+            Scalar scalar = probabilisticCalculator.ReadScalar(_workingVariable);
+            bool doesScalarHaveDecimalPart = scalar.GetHasDecimalPart();
+
+            if (doesScalarHaveDecimalPart)
                 return;
             
             NumericDisplay.Text += ",";
