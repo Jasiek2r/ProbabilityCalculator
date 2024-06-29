@@ -71,8 +71,18 @@ namespace ProbabilityCalculator.Views
             foreach (DataRow row in _realisationsTable.Rows)
             {
 
-                decimal rowProbability = Convert.ToDecimal(row["Value"]);
-                decimal rowRealisation = Convert.ToDecimal(row["Key"]);
+                decimal rowProbability;
+                decimal rowRealisation;
+
+                bool isCorrectDecimal = true;
+
+                isCorrectDecimal = decimal.TryParse(row["Value"].ToString(), out rowProbability);
+                isDataProbabilisticallyCorrect &= isCorrectDecimal;
+                isCorrectDecimal = decimal.TryParse(row["Key"].ToString(), out rowRealisation);
+                isDataProbabilisticallyCorrect &= isCorrectDecimal;
+
+                if (!isDataProbabilisticallyCorrect)
+                    break;
 
                 if (!realisations.ContainsKey(rowRealisation))
                 {

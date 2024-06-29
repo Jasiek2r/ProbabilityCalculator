@@ -24,5 +24,28 @@ namespace ProbabilityCalculator.ViewModels
         {
             this.realisations = realisations;
         }
+
+        public decimal Realise()
+        {
+            Random randomNumberGenerator = new Random();
+
+            decimal randNormalised = (decimal)randomNumberGenerator.NextDouble();
+
+            decimal threshold = 0;
+
+            decimal realisationValue = 0;
+
+            foreach(KeyValuePair<decimal, decimal> realisation in realisations)
+            {
+                threshold += realisation.Value;
+                if(randNormalised < threshold)
+                {
+                    realisationValue = realisation.Key;
+                    break;
+                }
+            }
+
+            return realisationValue;
+        }
     }
 }

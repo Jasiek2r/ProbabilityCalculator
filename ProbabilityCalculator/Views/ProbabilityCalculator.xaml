@@ -123,7 +123,7 @@
         <Border Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
             <Button Content="Set operand" FontSize="16" Click="SetWorkingVariable"></Button>
         </Border>
-        <Label Content="The result is always saved into the first operand (by default ANS = ANS+OPVAL)" HorizontalAlignment="Left" Margin="42,0,0,0" Grid.Row="8" VerticalAlignment="Center" Grid.ColumnSpan="5" Width="584"/>
+        <Label Content="For two-argument operation the result is always saved into the first operand (by default ANS = ANS+OPVAL)" HorizontalAlignment="Left" Margin="42,0,0,0" Grid.Row="8" VerticalAlignment="Center" Grid.ColumnSpan="5" Width="584"/>
 
 
     </Grid>

@@ -70,13 +70,14 @@ namespace ProbabilityCalculator.Views
         private void CreateVariable(object sender, RoutedEventArgs e)
         {
             string variableName = VariableCreatorVariableName.Text;
-            if(variableName.Length == 0)
+            if(variableName.Length == 0 || probabilityCalculator.VariableExists(variableName))
             {
                 return;
             }
 
             if(RandomQuantityRadio.IsChecked == true)
             {
+
                 probabilityCalculator.CreateRandomQuantity(variableName);
                 FormEditRandomQuantity formEditRandomQuantity = new FormEditRandomQuantity(ref probabilityCalculator, variableName);
                 formEditRandomQuantity.ShowDialog();

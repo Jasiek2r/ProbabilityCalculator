@@ -83,6 +83,8 @@ namespace ProbabilityCalculator.Views
 
             if (variableDataTypes == "randomQuantities" || variableDataTypes == "randomQuantityAndScalar")
                 LockNumericKeypad();
+            else
+                UnlockNumericKeypad();
             
 
         }
