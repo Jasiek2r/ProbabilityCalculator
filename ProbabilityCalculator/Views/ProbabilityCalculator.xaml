@@ -108,7 +108,7 @@
             <Button Name="BtnCLR" Content="CLR" FontSize="20" Click="Clear"></Button>
         </Border>
         <Border Grid.Row="4" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
-            <Button Content="E[X]" FontSize="20"></Button>
+            <Button x:Name="BtnExpectedValue" Content="E[X]" FontSize="20" Click="CalculateExpectedValue"></Button>
         </Border>
 
         <Border Grid.Row="8" Grid.Column="5" BorderBrush="Black" BorderThickness="1">

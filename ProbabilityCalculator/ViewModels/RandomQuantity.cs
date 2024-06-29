@@ -47,5 +47,19 @@ namespace ProbabilityCalculator.ViewModels
 
             return realisationValue;
         }
+        public decimal ComputeExpectedValue()
+        {
+            decimal expectedValue = 0;
+
+            foreach (var realization in realisations)
+            {
+                decimal value = realization.Key;
+                decimal probability = realization.Value;
+
+                expectedValue += value * probability;
+            }
+
+            return expectedValue;
+        }
     }
 }
