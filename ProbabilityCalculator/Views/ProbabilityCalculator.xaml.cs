@@ -46,37 +46,34 @@ namespace ProbabilityCalculator.Views
         {
             UnlockOps();
 
-            string variableDataTypes = GetVariableTypes(operand1, workingVariable);
+            string variableDataTypes = GetVariableTypes(_operand1, _workingVariable);
 
- 
-
-            switch (workingOperation)
+            switch (_workingOperation)
             {
                 case "+":
-                    probabilisticCalculator.Add(variableDataTypes, operand1, workingVariable);
-
+                    probabilisticCalculator.Add(variableDataTypes, _operand1, _workingVariable);
                     break;
                 case "x":
-                    probabilisticCalculator.Multiply(variableDataTypes, operand1, workingVariable);
+                    probabilisticCalculator.Multiply(variableDataTypes, _operand1, _workingVariable);
                     break;
                 case "-":
-                    probabilisticCalculator.Subtract(variableDataTypes, operand1, workingVariable);
+                    probabilisticCalculator.Subtract(variableDataTypes, _operand1, _workingVariable);
                     break;
                 case "/":
-                    probabilisticCalculator.Divide(variableDataTypes, operand1, workingVariable);
+                    probabilisticCalculator.Divide(variableDataTypes, _operand1, _workingVariable);
                     break;
                 default:
                     break;
             }
 
-            workingOperation = "";
-            workingVariable = operand1;
-            VarNameDisplay.Text = workingVariable;
+            _workingOperation = "";
+            _workingVariable = _operand1;
+            VarNameDisplay.Text = _workingVariable;
 
             if(variableDataTypes == "scalars" || variableDataTypes == "scalarAndRandomQuantity")
             {
-                Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
-                NumericDisplay.Text = ANS.GetValue().ToString();
+                Scalar answerScalar = probabilisticCalculator.ReadScalar(_workingVariable);
+                NumericDisplay.Text = answerScalar.GetValue().ToString();
                 probabilisticCalculator.ResetScalar("OPVAL");
             }
 
@@ -91,9 +88,9 @@ namespace ProbabilityCalculator.Views
 
         private bool _isCommaJustClicked = false;
 
-        string workingVariable = "ANS";
-        string operand1 = "ANS";
-        string workingOperation = "";
+        private string _workingVariable = "ANS";
+        private string _operand1 = "ANS";
+        string _workingOperation = "";
 
         private bool _isNumericKeyPadLocked = false;
 
@@ -105,19 +102,19 @@ namespace ProbabilityCalculator.Views
                 return;
             }
             //calculate the new value
-            Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
-            ANS.AppendDigit(number);
+            Scalar answerScalar = probabilisticCalculator.ReadScalar(_workingVariable);
+            answerScalar.AppendDigit(number);
             if (_isCommaJustClicked)
             {
                 _isCommaJustClicked = false;
-                decimal ansValue = ANS.GetValue();
+                decimal ansValue = answerScalar.GetValue();
                 ansValue = ansValue / 10;
-                ANS.SetValue(ansValue);
-                ANS.SetHasDecimalPart(true);
+                answerScalar.SetValue(ansValue);
+                answerScalar.SetHasDecimalPart(true);
             }
-            probabilisticCalculator.WriteScalar(workingVariable, ANS);
+            probabilisticCalculator.WriteScalar(_workingVariable, answerScalar);
             //update display
-            NumericDisplay.Text = ANS.GetValue().ToString();
+            NumericDisplay.Text = answerScalar.GetValue().ToString();
         }
 
         private void Add0(object sender, RoutedEventArgs e)
@@ -175,11 +172,11 @@ namespace ProbabilityCalculator.Views
             if (_isNumericKeyPadLocked)
                 return;
             //calculate the new value
-            Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
-            ANS.PopDigit();
-            probabilisticCalculator.WriteScalar(workingVariable, ANS);
+            Scalar editedScalar = probabilisticCalculator.ReadScalar(_workingVariable);
+            editedScalar.PopDigit();
+            probabilisticCalculator.WriteScalar(_workingVariable, editedScalar);
             //update display
-            NumericDisplay.Text = ANS.GetValue().ToString();
+            NumericDisplay.Text = editedScalar.GetValue().ToString();
         }
 
         private void LockOps()
@@ -245,11 +242,11 @@ namespace ProbabilityCalculator.Views
                 return;
             
             //calculate the new value
-            Scalar ANS = probabilisticCalculator.ReadScalar(workingVariable);
-            ANS.SetValue(0);
-            probabilisticCalculator.WriteScalar(workingVariable, ANS);
+            Scalar answerScalar = probabilisticCalculator.ReadScalar(_workingVariable);
+            answerScalar.SetValue(0);
+            probabilisticCalculator.WriteScalar(_workingVariable, answerScalar);
             //update display
-            NumericDisplay.Text = ANS.GetValue().ToString();
+            NumericDisplay.Text = answerScalar.GetValue().ToString();
         }
 
         //meant comma (,) to be changed later!
@@ -266,11 +263,11 @@ namespace ProbabilityCalculator.Views
         {
             LockOps();
             UnlockNumericKeypad();
-            if (workingOperation != "")
+            if (_workingOperation != "")
                 return;
-            workingOperation = "+";
-            workingVariable = "OPVAL";
-            VarNameDisplay.Text = workingVariable;
+            _workingOperation = "+";
+            _workingVariable = "OPVAL";
+            VarNameDisplay.Text = _workingVariable;
 
         }
 
@@ -278,59 +275,62 @@ namespace ProbabilityCalculator.Views
         {
             LockOps();
             UnlockNumericKeypad();
-            if (workingOperation != "")
+            if (_workingOperation != "")
                 return;
-            workingOperation = "x";
-            workingVariable = "OPVAL";
-            VarNameDisplay.Text = workingVariable;
+            _workingOperation = "x";
+            _workingVariable = "OPVAL";
+            VarNameDisplay.Text = _workingVariable;
         }
 
         private void Subtract(object sender, RoutedEventArgs e)
         {
             LockOps();
             UnlockNumericKeypad();
-            if (workingOperation != "")
+            if (_workingOperation != "")
                 return;
-            workingOperation = "-";
-            workingVariable = "OPVAL";
-            VarNameDisplay.Text = workingVariable;
+            _workingOperation = "-";
+            _workingVariable = "OPVAL";
+            VarNameDisplay.Text = _workingVariable;
         }
 
         private void Divide(object sender, RoutedEventArgs e)
         {
             LockOps();
             UnlockNumericKeypad();
-            if (workingOperation != "")
+            if (_workingOperation != "")
                 return;
-            workingOperation = "/";
-            workingVariable = "OPVAL";
-            VarNameDisplay.Text = workingVariable;
+            _workingOperation = "/";
+            _workingVariable = "OPVAL";
+            VarNameDisplay.Text = _workingVariable;
         }
 
         private void SetWorkingVariable(object sender, RoutedEventArgs e)
         {
-            FormSetWorkingVariable popup = new FormSetWorkingVariable(ref probabilisticCalculator, workingVariable);
+            FormSetWorkingVariable popup = new FormSetWorkingVariable(ref probabilisticCalculator, _workingVariable);
 
             popup.PropertyChanged += (s, args) =>
             {
-                if (args.PropertyName == "WorkingVariable")
+                if (args.PropertyName == "_workingVariable")
                 {
-                    VarNameDisplay.Text = popup.WorkingVariable;
-                    workingVariable = popup.WorkingVariable;
-                    if(workingOperation == "")
-                        operand1 = popup.WorkingVariable;
+                    VarNameDisplay.Text = popup.GetWorkingVariable();
+                    _workingVariable = popup.GetWorkingVariable();
+                    if(_workingOperation == "")
+                        _operand1 = popup.GetWorkingVariable();
                 }
             };
 
-            this.Hide();
+            Hide();
             popup.ShowDialog();
-            this.Show();
-            VarNameDisplay.Text = workingVariable;
+            Show();
+            _workingVariable = popup.GetWorkingVariable();
+            _operand1 = popup.GetWorkingVariable();
+            VarNameDisplay.Text = _workingVariable;
+            
 
-            string type = probabilisticCalculator.GetDataKeys()[workingVariable];
+            string type = probabilisticCalculator.GetDataKey(_workingVariable);
             if (type == "SCALAR")
             {
-                Scalar scalar = probabilisticCalculator.ReadScalar(workingVariable);
+                Scalar scalar = probabilisticCalculator.ReadScalar(_workingVariable);
                 NumericDisplay.Text = scalar.GetValue().ToString();
                 UnlockNumericKeypad();
             }
@@ -348,41 +348,33 @@ namespace ProbabilityCalculator.Views
             popup.ShowDialog();
             this.Show();
 
-            string type = probabilisticCalculator.GetDataKeys()[workingVariable];
+            string type = probabilisticCalculator.GetDataKey(_workingVariable);
 
             if (type == "SCALAR")
             {
-                Scalar possiblyEditedScalar = probabilisticCalculator.ReadScalar(workingVariable);
+                Scalar possiblyEditedScalar = probabilisticCalculator.ReadScalar(_workingVariable);
                 NumericDisplay.Text = possiblyEditedScalar.GetValue().ToString();
 
-            }
-            else
-            {
-                
             }
 
         }
 
         private void CalculateExpectedValue(object sender, RoutedEventArgs e)
         {
-            string dataKey = probabilisticCalculator.GetDataKey(workingVariable);
+            string dataKey = probabilisticCalculator.GetDataKey(_workingVariable);
 
             if (dataKey == "RANDOM QUANTITY")
             {
-                // Assuming you have a method to retrieve the random quantity value
-                RandomQuantity randomQuantity = probabilisticCalculator.ReadRandomQuantity(workingVariable);
+                RandomQuantity randomQuantity = probabilisticCalculator.ReadRandomQuantity(_workingVariable);
 
-                // Calculate expected value using the random quantity
                 decimal expectedValue = randomQuantity.ComputeExpectedValue();
 
-                // Update the ANS scalar with the expected value
                 probabilisticCalculator.WriteScalar("ANS", new Scalar(expectedValue));
 
-                // Display the expected value in the numeric display
                 NumericDisplay.Text = expectedValue.ToString();
 
-                workingVariable = "ANS";
-                workingOperation = "ANS";
+                _workingVariable = "ANS";
+                _workingOperation = "ANS";
                 VarNameDisplay.Text = "ANS";
 
                 UnlockNumericKeypad();
@@ -391,31 +383,26 @@ namespace ProbabilityCalculator.Views
             }
             else
             {
-                // Handle other cases or throw an error if needed
                 MessageBox.Show("Expected value calculation not supported for this data type.");
             }
         }
 
         private void CalculateVariance(object sender, RoutedEventArgs e)
         {
-            string dataKey = probabilisticCalculator.GetDataKey(workingVariable);
+            string dataKey = probabilisticCalculator.GetDataKey(_workingVariable);
 
             if (dataKey == "RANDOM QUANTITY")
             {
-                // Assuming you have a method to retrieve the random quantity value
-                RandomQuantity randomQuantity = probabilisticCalculator.ReadRandomQuantity(workingVariable);
+                RandomQuantity randomQuantity = probabilisticCalculator.ReadRandomQuantity(_workingVariable);
 
-                // Calculate expected value using the random quantity
                 decimal expectedValue = randomQuantity.ComputeVariance();
 
-                // Update the ANS scalar with the expected value
                 probabilisticCalculator.WriteScalar("ANS", new Scalar(expectedValue));
 
-                // Display the expected value in the numeric display
                 NumericDisplay.Text = expectedValue.ToString();
 
-                workingVariable = "ANS";
-                workingOperation = "ANS";
+                _workingVariable = "ANS";
+                _workingOperation = "ANS";
                 VarNameDisplay.Text = "ANS";
 
                 UnlockNumericKeypad();

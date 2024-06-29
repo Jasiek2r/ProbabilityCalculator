@@ -25,110 +25,124 @@ namespace ProbabilityCalculator.Views
     /// </summary>
     public partial class FormEditRandomQuantity : Window
     {
-        private DataTable _realisationsTable;
-        Calculator probabilisticCalculator;
+        private DataTable _realizationsTable;
+        private Calculator _probabilisticCalculator;
         private string _randomQuantityName;
+        private const decimal PROPER_NORMALIZATION_CONDITION_VALUE = 1;
+
         public FormEditRandomQuantity()
         {
             InitializeComponent();
 
         }
-        public FormEditRandomQuantity(ref Calculator probabilisticCalculator, string randomQuantityName)
+        public FormEditRandomQuantity(ref Calculator probabilisticCalculator, string randomQuantityName) : this()
         {
-            InitializeComponent();
             RandomQuantity editedRandomQuantity = probabilisticCalculator.ReadRandomQuantity(randomQuantityName);
-            this.probabilisticCalculator = probabilisticCalculator;
+            this._probabilisticCalculator = probabilisticCalculator;
             this._randomQuantityName = randomQuantityName;
 
-            Dictionary<decimal, decimal> realisationsDictionary = editedRandomQuantity.GetRealisations();
-            _realisationsTable = new DataTable();
-
-            _realisationsTable.Columns.Add("Key", typeof(decimal));
-            _realisationsTable.Columns.Add("Value", typeof(decimal));
-
-            foreach (var keyValue in realisationsDictionary)
-            {
-                DataRow row = _realisationsTable.NewRow();
-                row["Key"] = keyValue.Key;
-                row["Value"] = keyValue.Value;
-                _realisationsTable.Rows.Add(row);
-            }
-
-            RandomQuantityDataGrid.ItemsSource = _realisationsTable.DefaultView;
+            InitializeRealizationsTable(editedRandomQuantity);
+            InitializeDataGrid();
+            
 
             this.Closing += OnClosingSave;
         }
 
+        private void InitializeDataGrid()
+        {
+            RandomQuantityDataGrid.ItemsSource = _realizationsTable.DefaultView;
+        }
+
+        private void InitializeRealizationsTable(RandomQuantity editedRandomQuantity)
+        {
+            _realizationsTable = new DataTable();
+
+            _realizationsTable.Columns.Add("Key", typeof(decimal));
+            _realizationsTable.Columns.Add("Value", typeof(decimal));
+
+            foreach (var keyValue in editedRandomQuantity.GetRealizations())
+            {
+                DataRow row = _realizationsTable.NewRow();
+                row["Key"] = keyValue.Key;
+                row["Value"] = keyValue.Value;
+                _realizationsTable.Rows.Add(row);
+            }
+        }
+
+
         private void OnClosingSave(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
-            bool isDataProbabilisticallyCorrect = true;
-
-            decimal normalisationCondition = 0;
-
-            Dictionary<decimal, decimal> realisations = new Dictionary<decimal, decimal>();
-
-            foreach (DataRow row in _realisationsTable.Rows)
-            {
-
-                decimal rowProbability;
-                decimal rowRealisation;
-
-                bool isCorrectDecimal = true;
-
-                isCorrectDecimal = decimal.TryParse(row["Value"].ToString(), out rowProbability);
-                isDataProbabilisticallyCorrect &= isCorrectDecimal;
-                isCorrectDecimal = decimal.TryParse(row["Key"].ToString(), out rowRealisation);
-                isDataProbabilisticallyCorrect &= isCorrectDecimal;
-
-                if (!isDataProbabilisticallyCorrect)
-                    break;
-
-                if (!realisations.ContainsKey(rowRealisation))
-                {
-                    realisations.Add(rowRealisation, rowProbability);
-                }
-                else
-                {
-                    isDataProbabilisticallyCorrect = false;
-
-                }
-
-                
-
-                //from Kolmogorov axioms
-                if(rowProbability < 0 || rowProbability > 1)
-                {
-                    isDataProbabilisticallyCorrect = false;
-                }
-
-                normalisationCondition += rowProbability;
-                
-            }
-
-            if(normalisationCondition != 1)
-            {
-                isDataProbabilisticallyCorrect = false;
-            }
+            bool isDataProbabilisticallyCorrect = ValidateRealizationsTable();
 
             if (isDataProbabilisticallyCorrect)
             {
-                RandomQuantity savedRandomQuantity = probabilisticCalculator.ReadRandomQuantity(_randomQuantityName);
-                savedRandomQuantity.SetRealisations(realisations);
-                probabilisticCalculator.WriteRandomQuantity(_randomQuantityName, savedRandomQuantity);
-
+                SaveRandomQuantity();
             }
-            else {
-                var result = MessageBox.Show("The data inputted is not probabilistically correct. Discard changes?", "Saving failed",
-                                 MessageBoxButton.YesNo,
-                                 MessageBoxImage.Question);
+            else
+            {
+                HandleInvalidData(e);
+            }
+        }
 
-                if (result == MessageBoxResult.No)
-                {
-                    e.Cancel = true;
-                }
+        private bool ValidateRealizationsTable()
+        {
+            decimal normalisationCondition = 0;
+            Dictionary<decimal, decimal> realizations = new Dictionary<decimal, decimal>();
+
+            foreach (DataRow row in _realizationsTable.Rows)
+            {
+                if (!Decimal.TryParse(row["Value"].ToString(), out decimal rowProbability) ||
+                    !Decimal.TryParse(row["Key"].ToString(), out decimal rowRealisation))
+                    return false;
+
+
+                if (realizations.ContainsKey(rowRealisation))
+                    return false;
+
+                if (rowProbability < 0 || rowProbability > 1)
+                    return false;
+
+                normalisationCondition += rowProbability;
             }
 
+            if (normalisationCondition != PROPER_NORMALIZATION_CONDITION_VALUE)
+                return false;
+
+            return true;
+        }
+
+        private void SaveRandomQuantity()
+        {
+            RandomQuantity savedRandomQuantity = _probabilisticCalculator.ReadRandomQuantity(_randomQuantityName);
+            Dictionary<decimal, decimal> realizations = new Dictionary<decimal, decimal>();
+
+            foreach (DataRow row in _realizationsTable.Rows)
+            {
+                decimal.TryParse(row["Value"].ToString(), out decimal rowProbability);
+                decimal.TryParse(row["Key"].ToString(), out decimal rowRealisation);
+
+                realizations.Add(rowRealisation, rowProbability);
+            }
+
+            savedRandomQuantity.SetRealizations(realizations);
+            _probabilisticCalculator.WriteRandomQuantity(_randomQuantityName, savedRandomQuantity);
+        }
+
+        private void HandleInvalidData(System.ComponentModel.CancelEventArgs e)
+        {
+            var result = MessageBox.Show("The data inputted is not probabilistically correct. Discard changes?", "Saving failed",
+                                         MessageBoxButton.YesNo,
+                                         MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+                e.Cancel = true;
+            
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _realizationsTable.Dispose();
         }
     }
 }

@@ -8,24 +8,24 @@ namespace ProbabilityCalculator.ViewModels
 {
     public class RandomQuantity
     {
-        Dictionary<decimal, decimal> realisations;
+        private Dictionary<decimal, decimal> _realizations;
         public RandomQuantity()
         {
-            realisations = new Dictionary<decimal, decimal>();
-            realisations.Add(1, 1);
+            _realizations = new Dictionary<decimal, decimal>();
+            _realizations.Add(1, 1);
         }
 
-        public Dictionary<decimal,decimal> GetRealisations()
+        public Dictionary<decimal,decimal> GetRealizations()
         {
-            return realisations;
+            return _realizations;
         }
 
-        public void SetRealisations(Dictionary<decimal, decimal> realisations)
+        public void SetRealizations(Dictionary<decimal, decimal> realizations)
         {
-            this.realisations = realisations;
+            this._realizations = realizations;
         }
 
-        public decimal Realise()
+        public decimal Realize()
         {
             Random randomNumberGenerator = new Random();
 
@@ -33,25 +33,25 @@ namespace ProbabilityCalculator.ViewModels
 
             decimal threshold = 0;
 
-            decimal realisationValue = 0;
+            decimal realizationValue = 0;
 
-            foreach(KeyValuePair<decimal, decimal> realisation in realisations)
+            foreach(KeyValuePair<decimal, decimal> realization in _realizations)
             {
-                threshold += realisation.Value;
+                threshold += realization.Value;
                 if(randNormalised < threshold)
                 {
-                    realisationValue = realisation.Key;
+                    realizationValue = realization.Key;
                     break;
                 }
             }
 
-            return realisationValue;
+            return realizationValue;
         }
         public decimal ComputeExpectedValue()
         {
             decimal expectedValue = 0;
 
-            foreach (var realization in realisations)
+            foreach (var realization in _realizations)
             {
                 decimal value = realization.Key;
                 decimal probability = realization.Value;
@@ -68,7 +68,7 @@ namespace ProbabilityCalculator.ViewModels
             decimal mean = ComputeExpectedValue();
 
             decimal sumSquaredDifferences = 0;
-            foreach (KeyValuePair<decimal, decimal> realisation in realisations)
+            foreach (KeyValuePair<decimal, decimal> realisation in _realizations)
             {
                 decimal difference = realisation.Key - mean;
                 sumSquaredDifferences += difference * difference * realisation.Value;

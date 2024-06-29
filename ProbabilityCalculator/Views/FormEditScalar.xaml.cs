@@ -19,7 +19,7 @@ namespace ProbabilityCalculator.Views
     /// </summary>
     public partial class FormEditScalar : Window
     {
-        decimal value = 0;
+        private decimal _value = 0;
         public FormEditScalar()
         {
             InitializeComponent();
@@ -27,21 +27,16 @@ namespace ProbabilityCalculator.Views
 
         public decimal GetNumericValue()
         {
-            return value;
+            return _value;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             string textValue = NumericValue.Text;
-            if (Decimal.TryParse(textValue, out value))
-            {
+            if (Decimal.TryParse(textValue, out _value))
                 this.Close();
-            }
             else
-            {
                 MessageBox.Show("Incorrect input");
-            }
         }
     }
 }

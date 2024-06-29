@@ -25,7 +25,7 @@ namespace ProbabilityCalculator.Views
     {
         public event PropertyChangedEventHandler PropertyChanged;
     
-        protected Calculator probabilityCalculator;
+        private Calculator _probabilityCalculator;
         private string _workingVariable;
 
         public string WorkingVariable
@@ -45,10 +45,9 @@ namespace ProbabilityCalculator.Views
         {
             InitializeComponent();
         }
-        public FormSetWorkingVariable(ref Calculator probabilisticCalculator, string workingVariable)
+        public FormSetWorkingVariable(ref Calculator probabilisticCalculator, string workingVariable) : this()
         {
-            this.probabilityCalculator = probabilisticCalculator;
-            InitializeComponent();
+            this._probabilityCalculator = probabilisticCalculator;
             SelectVariablesGrid.ItemsSource = probabilisticCalculator.GetDataKeys();
             this._workingVariable = workingVariable;
         }
@@ -61,7 +60,7 @@ namespace ProbabilityCalculator.Views
                 if (name != "OPVAL")
                 {
                     WorkingVariable = selection.Key;
-                    this.Close();
+                    Close();
                 }
                 else
                     MessageBox.Show("Access to OPVAL is restricted");
@@ -75,6 +74,11 @@ namespace ProbabilityCalculator.Views
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string GetWorkingVariable()
+        {
+            return _workingVariable;
         }
     }
 }

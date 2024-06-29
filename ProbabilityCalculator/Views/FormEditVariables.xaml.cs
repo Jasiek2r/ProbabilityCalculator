@@ -21,18 +21,16 @@ namespace ProbabilityCalculator.Views
     /// </summary>
     public partial class FormEditVariables : Window
     {
-        protected Calculator probabilityCalculator;
+        private Calculator _probabilisticCalculator;
         private string _workingVariable;
 
         public FormEditVariables()
         {
             InitializeComponent();
         }
-        public FormEditVariables(ref Calculator probabilisticCalculator)
+        public FormEditVariables(ref Calculator probabilisticCalculator) : this()
         {
-            this.probabilityCalculator = probabilisticCalculator;
-            InitializeComponent();
-
+            this._probabilisticCalculator = probabilisticCalculator;
             SelectVariablesGrid.ItemsSource = probabilisticCalculator.GetDataKeys();
         }
 
@@ -44,21 +42,13 @@ namespace ProbabilityCalculator.Views
                 string name = selection.Key;
                 if (name != "OPVAL")
                 {
-                    string type = probabilityCalculator.GetDataKeys()[name];
+                    string type = _probabilisticCalculator.GetDataKey(name);
                     if (type == "SCALAR")
-                    {
-                        FormEditScalar scalarEditor = new FormEditScalar();
-                        scalarEditor.ShowDialog();
-                        Scalar editedScalar = probabilityCalculator.ReadScalar(name);
-                        editedScalar.SetValue(scalarEditor.GetNumericValue());
-                        probabilityCalculator.WriteScalar(name, editedScalar);
-                    }
+                        EditScalarVariable(name);
+                    
                     else
-                    {
-                        FormEditRandomQuantity randomQuantityEditor = new FormEditRandomQuantity(ref probabilityCalculator, name);
-                        randomQuantityEditor.ShowDialog();
-
-                    }
+                        EditRandomQuantityVariable(name);
+                        
 
                 }
                 else
@@ -67,36 +57,51 @@ namespace ProbabilityCalculator.Views
             }
         }
 
+        private void EditScalarVariable(string name)
+        {
+            FormEditScalar scalarEditor = new FormEditScalar();
+            scalarEditor.ShowDialog();
+            Scalar editedScalar = _probabilisticCalculator.ReadScalar(name);
+            editedScalar.SetValue(scalarEditor.GetNumericValue());
+            _probabilisticCalculator.WriteScalar(name, editedScalar);
+        }
+
+        private void EditRandomQuantityVariable(string name)
+        {
+            FormEditRandomQuantity randomQuantityEditor = new FormEditRandomQuantity(ref _probabilisticCalculator, name);
+            randomQuantityEditor.ShowDialog();
+        }
+
         private void CreateVariable(object sender, RoutedEventArgs e)
         {
             string variableName = VariableCreatorVariableName.Text;
-            if(variableName.Length == 0 || probabilityCalculator.VariableExists(variableName))
+            if(variableName.Length == 0 || _probabilisticCalculator.VariableExists(variableName))
             {
                 return;
             }
 
             if(RandomQuantityRadio.IsChecked == true)
             {
-
-                probabilityCalculator.CreateRandomQuantity(variableName);
-                FormEditRandomQuantity formEditRandomQuantity = new FormEditRandomQuantity(ref probabilityCalculator, variableName);
-                formEditRandomQuantity.ShowDialog();
-                SelectVariablesGrid.Items.Refresh();
+                CreateRandomQuantityVariable(variableName);
             }
 
             if(ScalarRadio.IsChecked == true)
             {
-                probabilityCalculator.CreateScalar(variableName);
-                FormEditScalar formEditScalar = new FormEditScalar();
-                formEditScalar.ShowDialog();
-
-                Scalar createdScalar = probabilityCalculator.ReadScalar(variableName);
-                createdScalar.SetValue(formEditScalar.GetNumericValue());
-                probabilityCalculator.WriteScalar(variableName, createdScalar);
-
-                SelectVariablesGrid.Items.Refresh();
-
+                CreateScalarVariable(variableName);
             }
+            SelectVariablesGrid.Items.Refresh();
+        }
+
+        private void CreateRandomQuantityVariable(string variableName)
+        {
+            _probabilisticCalculator.CreateRandomQuantity(variableName);
+            EditRandomQuantityVariable(variableName);
+        }
+
+        private void CreateScalarVariable(string variableName)
+        {
+            _probabilisticCalculator.CreateScalar(variableName);
+            EditScalarVariable(variableName);
         }
     }
 }
